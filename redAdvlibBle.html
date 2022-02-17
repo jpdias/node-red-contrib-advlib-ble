@@ -1,0 +1,40 @@
+<script type="text/javascript">
+  RED.nodes.registerType("red-advlib-ble", {
+    category: "function",
+    color: "#3FADB5",
+    defaults: {
+      name: { value: "" },
+      ignoreProtocolOverheadCheckbox: { value: false },
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "envelope.svg",
+    label: function () {
+      return this.name || "red-advlib-ble";
+    },
+  });
+</script>
+
+<script type="text/html" data-template-name="red-advlib-ble">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-ignoreProtocolOverheadCheckbox">
+      Ignore Protocol Overhead</label
+    >
+    <input
+      type="checkbox"
+      id="node-input-ignoreProtocolOverheadCheckbox"
+      checked="false"
+    />
+  </div>
+</script>
+
+<script type="text/html" data-help-name="red-advlib-ble">
+  <p>
+    Decode BLE advertisement payloads to readable JSON objects. Uses
+    <a src="https://github.com/reelyactive/advlib-ble">advlib-ble</a>.
+  </p>
+</script>
