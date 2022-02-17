@@ -16,9 +16,19 @@ module.exports = function (RED) {
         node.on('input', function (msg) {
             let packet = msg.payload.data;
             let options = { ignoreProtocolOverhead: ignoreProtocolOverheadCheckbox };
-            let processedPacket = advlib.process(packet, LIBRARIES, options);
-            msg.payload.advDecoded = processedPacket;
-            node.send(msg);
+            try {
+                let processedPacket = advlib.process(packet, LIBRARIES, options);
+                msg.payload.advDecoded = processedPacket;
+                this.status({ fill: "green", shape: "dot", text: "ok" });
+                node.send(msg);
+            } catch (e) {
+                if (e instanceof RangeError && e.code === 'ERR_BUFFER_OUT_OF_BOUNDS') {
+                    // Output expected ERR_BUFFER_OUT_OF_BOUNDS RangeErrors.
+                    this.status({ fill: "red", shape: "dot", text: "RangeError" });
+                } else {
+                    this.status({ fill: "red", shape: "dot", text: e.code });
+                }
+            }
         });
     }
     RED.nodes.registerType("red-advlib-ble", redAdvlibBle);
