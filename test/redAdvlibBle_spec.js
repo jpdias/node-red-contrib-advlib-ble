@@ -43,12 +43,13 @@ describe('red-advlib-ble Node', function () {
                     type: "ADV_NONCONN_IND",
                     length: 29,
                     advA: "bada55beac04",
-                    name: "advlib by reelyActive"
+                    name: "advlib by reelyActive",
                 }
-                msg.should.have.property('payload', result);
+                msg.payload.advDecoded = result;
+                msg.payload.should.have.property('advDecoded', result);
                 done();
             });
-            n1.receive({ payload: "c21d04acbe55daba16096164766c6962206279207265656c79416374697665" });
+            n1.receive({ payload: { data: "c21d04acbe55daba16096164766c6962206279207265656c79416374697665" } });
         });
     });
 });

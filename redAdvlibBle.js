@@ -14,10 +14,11 @@ module.exports = function (RED) {
         const ignoreProtocolOverheadCheckbox = config.ignoreProtocolOverheadCheckbox;
         var node = this;
         node.on('input', function (msg) {
-            let packet = msg.payload;
+            let packet = msg.payload.data;
             let options = { ignoreProtocolOverhead: ignoreProtocolOverheadCheckbox };
             let processedPacket = advlib.process(packet, LIBRARIES, options);
-            node.send({ "payload": processedPacket });
+            msg.payload.advDecoded = processedPacket;
+            node.send(msg);
         });
     }
     RED.nodes.registerType("red-advlib-ble", redAdvlibBle);
