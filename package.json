@@ -29,8 +29,8 @@
     "advlib-ble-services": "^1.2.1"
   },
   "devDependencies": {
-    "node-red": "^1.2.9",
+    "node-red": "^3.0.2",
     "mocha": "^8.4.0",
-    "node-red-node-test-helper": "^0.2.7"
+    "node-red-node-test-helper": "^0.3.0"
   }
 }
